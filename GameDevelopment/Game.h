@@ -18,6 +18,9 @@ public:
     Character player;
     sf::Texture mapTexture;
     sf::Sprite map;
+    
+    sf::Texture mapTilesTexture;
+    sf::Sprite mapTilesSprite;
     TileMap mapTiles;
 
     std::list<Entity*> entities;
