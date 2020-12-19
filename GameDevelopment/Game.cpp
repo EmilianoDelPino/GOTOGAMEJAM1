@@ -92,6 +92,15 @@ void Game::gameLoop() {
             {
                 entity->_life = 0;
                 std::cout << "hola" << std::endl;
+                if (entity->_name.compare("disco"))
+                {
+                    player.carisma++;
+                }
+                if (entity->_name.compare("libro"))
+                {
+                    player.inteligencia++;
+                }
+
             }
            
         }
