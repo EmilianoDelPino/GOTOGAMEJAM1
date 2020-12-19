@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "Character.h"
 #include "TileMap.h"
+#include "Entity.h"
+#include <list>
 
 class Game
 {
@@ -17,6 +19,8 @@ public:
     sf::Texture mapTexture;
     sf::Sprite map;
     TileMap mapTiles;
+
+    std::list<Entity> *entities;
 
     std::vector<sf::FloatRect>vectorColisiones;
 
