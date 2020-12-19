@@ -116,7 +116,6 @@ void Game::gameLoop() {
     
     while (window1.isOpen() && !gameOver)
     {
-
         inteligenciaText.setString("inteligencia: " + std::to_string(player.inteligencia));
         carismaText.setString("carisma: " + std::to_string(player.carisma));
         puntajeTotalText.setString("puntaje total:" + std::to_string(player.inteligencia+ player.carisma));
