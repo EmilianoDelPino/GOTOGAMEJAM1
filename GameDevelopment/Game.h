@@ -18,6 +18,8 @@ public:
     sf::Sprite map;
     TileMap mapTiles;
 
+    std::vector<sf::FloatRect>vectorColisiones;
+
     Game();
     void initializer();
     void drawWindow();

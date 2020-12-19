@@ -17,7 +17,7 @@ void Game::initializer()
     window1.create(sf::VideoMode(1280, 720), "The Game");
     window1.setFramerateLimit(60);
 
-    const int level[] =
+    int level[] =
     {
         0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
         0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
@@ -28,6 +28,15 @@ void Game::initializer()
         2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
         0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
     };
+
+    int i = 0;
+    for (auto x : level) {
+        if (level[i] != 0) {
+            level[i] -= 1;
+            vectorColisiones.push_back(sf::FloatRect(i % 20 * 16, i / 20 * 16, 16, 16));
+        }
+        i++;
+    }
 
     if (!mapTiles.load("tileset.png", sf::Vector2u(16, 16), level, 16, 8)) {
         std::cout << "Error en la carga de ID de tiles en el mapTiles.load" << std::endl;
@@ -45,7 +54,14 @@ void Game::gameLoop() {
         ///----------------------------
         ///actualizar las cosas
         ///----------------------------
-        /// 
+
+        for (auto col : vectorColisiones) {
+            if (player._sprite.getGlobalBounds().intersects(col)) {
+                std::cout << "Colision" << std::endl;
+            }
+        }
+
+
         player.movePlayer(frame);
         drawWindow();
 
