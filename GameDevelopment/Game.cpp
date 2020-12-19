@@ -79,9 +79,12 @@ void Game::gameLoop() {
         ///----------------------------
         ///actualizar las cosas
         ///----------------------------
-
+        sf::FloatRect cosita;
         for (auto &col : vectorColisiones) {
-            if (player._sprite.getGlobalBounds().intersects(col)) {
+            player._sprite.setOrigin(0, 0);
+            cosita=sf::FloatRect(sf::Vector2f(player._x+15, player._y + player._sprite.getGlobalBounds().height), sf::Vector2f(20/*player._sprite.getGlobalBounds().width -20 */, 5));
+            if (col.intersects(cosita)) {
+            //if (player._sprite.getGlobalBounds().intersects(col)) {
                 std::cout << "Colision" << std::endl;
             }
         }

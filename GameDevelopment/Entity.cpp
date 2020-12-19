@@ -6,4 +6,6 @@ Entity::Entity(std::string name, sf::Texture& texture, int x , int y)
 	_texture = texture;
 	_sprite.setTexture(_texture);
 	_sprite.setPosition(x, y);
+	_x = x;
+	_y = y;
 }

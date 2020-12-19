@@ -12,9 +12,25 @@ class Character : public Entity
 	float carisma = 0;
 	float puntajeTotal = 0;
 
+	bool izq = false;
+
 	void setPlayer();
 	void setTexturaPlayer();
 	void movePlayer(float frame);
+	
+	void draw(sf::RenderWindow& app)
+	{
+		if (!izq)
+		{
+			_sprite.setPosition(_x, _y);
+		}
+		else
+		{
+			_sprite.setPosition(_x+_sprite.getGlobalBounds().width, _y);
+		}
+		
+		app.draw(_sprite);
+	}
 
 };
 

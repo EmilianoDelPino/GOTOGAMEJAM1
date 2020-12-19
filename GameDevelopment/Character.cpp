@@ -31,48 +31,57 @@ void Character::movePlayer(float frame) {
 		std::cout << "W." << std::endl;
 		if (pos.y >= 0 + (sh / 2))
 		{
-			_sprite.move(sf::Vector2f(0.f, -5.0f));
+			//_sprite.move(sf::Vector2f(0.f, -5.0f));
+			_y -= 5.0f;
 		}
 		_sprite.setTextureRect(sf::IntRect(sizeTexture.x * ((int)frame % 8), sizeTexture.y * 3, sizeTexture.x, sizeTexture.y));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		std::cout << "A." << std::endl;
 
+		izq = true;
+
 		if (pos.x >= 0 + (sh / 2))
 		{
-			_sprite.move(sf::Vector2f(-5.0f, 0.f));
+			//_sprite.move(sf::Vector2f(-5.0f, 0.f));
+			_x -= 5.0f;
 		}
-		
-
 		_sprite.setScale(-1, 1);
+		//_sprite.setPosition(sf::Vector2f(_x+_sprite.getGlobalBounds().width*2, _y));
 		_sprite.setTextureRect(sf::IntRect(sizeTexture.x * ((int)frame % 8), sizeTexture.y * 2, sizeTexture.x, sizeTexture.y));
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 			std::cout << "S." << std::endl;
 
 			if (pos.y <= 720 - (sw / 2))
 			{
-				_sprite.move(sf::Vector2f(0.f, 5.0f));
+				//_sprite.move(sf::Vector2f(0.f, 5.0f));
+				_y += 5.0f;
 			}
 
 			_sprite.setTextureRect(sf::IntRect(sizeTexture.x * ((int)frame % 8), sizeTexture.y * 2, sizeTexture.x, sizeTexture.y));
 		}
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) 
+	{
 		std::cout << "S." << std::endl;
 
 		if (pos.y <= 720 - (sw / 2))
 		{
-			_sprite.move(sf::Vector2f(0.f, 5.0f));
+			//_sprite.move(sf::Vector2f(0.f, 5.0f));
+			_y += 5.0f;
 		}
 		_sprite.setTextureRect(sf::IntRect(sizeTexture.x * ((int)frame % 8), 0, sizeTexture.x, sizeTexture.y));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		std::cout << "D." << std::endl;
+		izq = false;
 		if (pos.x <= 1280 - (sw / 2))
 		{
-			_sprite.move(sf::Vector2f(5.0f, 0.f));
+			//_sprite.move(sf::Vector2f(5.0f, 0.f));
+			_x+= 5.0f;
 		}
 		_sprite.setScale(1, 1);
+		_sprite.setPosition(sf::Vector2f(_sprite.getGlobalBounds().width , _y));
 		_sprite.setTextureRect(sf::IntRect(sizeTexture.x * ((int)frame % 8), sizeTexture.y * 2, sizeTexture.x, sizeTexture.y));
 	}
 }
