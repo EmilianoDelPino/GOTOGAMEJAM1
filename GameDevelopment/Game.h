@@ -20,7 +20,10 @@ public:
     sf::Sprite map;
     TileMap mapTiles;
 
-    std::list<Entity> *entities;
+    std::list<Entity*> entities;
+
+    sf::Texture libroTexture;
+    sf::Texture discoTexture;
 
     std::vector<sf::FloatRect>vectorColisiones;
 

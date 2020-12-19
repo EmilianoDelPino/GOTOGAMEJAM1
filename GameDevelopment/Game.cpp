@@ -14,6 +14,30 @@ void Game::initializer()
     mapTexture.loadFromFile("images/map.png");
     map.setTexture(mapTexture);
 
+    libroTexture.loadFromFile("images/libro.png");
+    discoTexture.loadFromFile("images/disco.png");
+
+    {
+        Entity* disco = new Entity("disco",discoTexture,400,350);
+        entities.push_back(disco);
+    }
+    {
+        Entity* disco = new Entity("disco", discoTexture, 300, 350);
+        entities.push_back(disco);
+    }
+    {
+        Entity* disco = new Entity("disco", discoTexture, 200, 350);
+        entities.push_back(disco);
+    }
+    {
+        Entity* disco = new Entity("disco", discoTexture, 300, 150);
+        entities.push_back(disco);
+    }
+    {
+        Entity* disco = new Entity("disco", discoTexture, 300, 267);
+        entities.push_back(disco);
+    }
+
     window1.create(sf::VideoMode(1280, 720), "The Game");
     window1.setFramerateLimit(60);
 
@@ -55,12 +79,46 @@ void Game::gameLoop() {
         ///actualizar las cosas
         ///----------------------------
 
-        for (auto col : vectorColisiones) {
+        for (auto &col : vectorColisiones) {
             if (player._sprite.getGlobalBounds().intersects(col)) {
                 std::cout << "Colision" << std::endl;
             }
         }
 
+
+        for (auto entity : entities)
+        {
+            if (entity->_sprite.getGlobalBounds().intersects(player._sprite.getGlobalBounds()))
+            {
+                entity->_life = 0;
+                std::cout << "hola" << std::endl;
+                if (entity->_name.compare("disco"))
+                {
+                    player.carisma++;
+                }
+                if (entity->_name.compare("libro"))
+                {
+                    player.inteligencia++;
+                }
+
+            }
+           
+        }
+
+        for (auto i = entities.begin(); i != entities.end();)
+        {
+            Entity* e = *i;
+            if (e->_life == 0)
+            {
+                delete e;
+                i = entities.erase(i);
+            }
+            else
+            {
+                i++;
+            }
+            
+        }
 
         player.movePlayer(frame);
         drawWindow();
@@ -86,6 +144,10 @@ void Game::drawWindow() {
     window1.draw(map);
     //window1.draw(player);
     player.draw(window1);
+    for (auto entity : entities)
+    {
+        entity->draw(window1);
+    }
 
     window1.display();
 }

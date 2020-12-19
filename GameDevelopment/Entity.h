@@ -3,8 +3,10 @@
 class Entity
 {
 public:
-	Entity() {};
-	Entity(std::string name, sf::Texture& texture);
+	Entity() {
+		_life = 1;
+	};
+	Entity(std::string name, sf::Texture& ,int x , int y);
 	bool _life;
 	std::string _name;
 	sf::Sprite _sprite;
