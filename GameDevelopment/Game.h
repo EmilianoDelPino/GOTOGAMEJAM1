@@ -8,7 +8,12 @@
 class Game
 {
 public:
-    //Character player;
+    sf::Font font;
+
+    sf::Text inteligenciaText;
+    sf::Text carismaText;
+    sf::Text puntajeTotalText;
+    
     float frame = 0.f;
 
     sf::RenderWindow window1;

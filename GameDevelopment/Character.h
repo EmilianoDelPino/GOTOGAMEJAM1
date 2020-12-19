@@ -8,9 +8,9 @@ class Character : public Entity
     Character(){};
     float frame = 0.f;
 
-	float inteligencia = 0;
-	float carisma = 0;
-	float puntajeTotal = 0;
+	int inteligencia = 0;
+	int carisma = 0;
+	int puntajeTotal = 0;
 
 	bool izq = false;
 

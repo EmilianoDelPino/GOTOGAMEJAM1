@@ -6,6 +6,32 @@ Game::Game()
 }
 void Game::initializer()
 {
+    font.loadFromFile("fonts/PressStart2P-Regular.ttf");
+
+    inteligenciaText.setCharacterSize(15);
+    carismaText.setCharacterSize(15);
+    puntajeTotalText.setCharacterSize(15);
+
+    inteligenciaText.setFont(font);
+    carismaText.setFont(font);
+    puntajeTotalText.setFont(font);
+
+    inteligenciaText.setFillColor(sf::Color(0, 255, 0));
+    carismaText.setFillColor(sf::Color(0, 255, 0));
+    puntajeTotalText.setFillColor(sf::Color(0, 255, 0));
+
+    inteligenciaText.setString("inteligencia: ");
+    carismaText.setString("carisma: ");
+    puntajeTotalText.setString("puntaje total:");
+
+    inteligenciaText.setPosition(0, 0);
+    carismaText.setPosition(250, 0);
+    puntajeTotalText.setPosition(430, 0);
+
+    /*inteligenciaText
+    carismaText
+    puntajeTotalText*/
+
     gameOver = false;
     
     player.setTexturaPlayer();
@@ -20,25 +46,38 @@ void Game::initializer()
     libroTexture.loadFromFile("images/libro.png");
     discoTexture.loadFromFile("images/disco.png");
 
+    ///-------------------------------------
+    ///discos
+    ///-------------------------------------
+
     {
-        Entity* disco = new Entity("disco",discoTexture,400,350);
-        entities.push_back(disco);
+        Entity* coso = new Entity("disco",discoTexture,215,720-210);
+        entities.push_back(coso);
     }
     {
-        Entity* disco = new Entity("disco", discoTexture, 300, 350);
-        entities.push_back(disco);
+        Entity* coso = new Entity("disco", discoTexture, 325, 105);
+        entities.push_back(coso);
     }
     {
-        Entity* disco = new Entity("disco", discoTexture, 200, 350);
-        entities.push_back(disco);
+        Entity* coso = new Entity("disco", discoTexture, 200, 350);
+        entities.push_back(coso);
+    }
+
+    ///-------------------------------------
+    ///libros
+    ///-------------------------------------
+
+    {
+        Entity* coso = new Entity("libro", libroTexture, 545, 60);
+        entities.push_back(coso);
     }
     {
-        Entity* disco = new Entity("disco", discoTexture, 300, 150);
-        entities.push_back(disco);
+        Entity* coso = new Entity("libro", libroTexture, 290, 315);
+        entities.push_back(coso);
     }
     {
-        Entity* disco = new Entity("disco", discoTexture, 300, 267);
-        entities.push_back(disco);
+        Entity* coso = new Entity("libro", libroTexture, 600, 267);
+        entities.push_back(coso);
     }
 
     window1.create(sf::VideoMode(720, 720), "The Game");
@@ -67,6 +106,9 @@ void Game::initializer()
         std::cout << "Error en la carga de ID de tiles en el mapTiles.load" << std::endl;
     }
 
+    player._x = 30;
+    player._y = 720-150;
+    
     gameLoop();
 }
 
@@ -74,6 +116,11 @@ void Game::gameLoop() {
     
     while (window1.isOpen() && !gameOver)
     {
+
+        inteligenciaText.setString("inteligencia: " + std::to_string(player.inteligencia));
+        carismaText.setString("carisma: " + std::to_string(player.carisma));
+        puntajeTotalText.setString("puntaje total:" + std::to_string(player.inteligencia+ player.carisma));
+
         frame += 0.3f;
         eventListener();
         ///----------------------------
@@ -98,11 +145,11 @@ void Game::gameLoop() {
                 std::cout << "hola" << std::endl;
                 if (entity->_name.compare("disco"))
                 {
-                    player.carisma++;
+                    player.carisma+=10;
                 }
                 if (entity->_name.compare("libro"))
                 {
-                    player.inteligencia++;
+                    player.inteligencia+=10;
                 }
 
             }
@@ -138,6 +185,12 @@ void Game::eventListener()
         if (event.type == sf::Event::Closed)
             window1.close();
     }
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        sf::Vector2i localPosition = sf::Mouse::getPosition(window1);
+        std::cout <<"x: "<< localPosition.x << std::endl;
+        std::cout <<"y: "<< localPosition.y << std::endl;
+    }
+
 }
 
 void Game::drawWindow() {
@@ -153,6 +206,12 @@ void Game::drawWindow() {
     {
         entity->draw(window1);
     }
+
+    
+    window1.draw(inteligenciaText);
+    window1.draw(carismaText);
+    window1.draw(puntajeTotalText);
+
 
     window1.display();
 }
