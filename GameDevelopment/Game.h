@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Character.h"
+#include "TileMap.h"
 
 class Game
 {
@@ -15,6 +16,7 @@ public:
     Character player;
     sf::Texture mapTexture;
     sf::Sprite map;
+    TileMap mapTiles;
 
     Game();
     void initializer();
