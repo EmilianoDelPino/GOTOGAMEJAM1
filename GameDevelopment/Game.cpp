@@ -159,13 +159,13 @@ void Game::gameLoop() {
 
         if (entities.size() == 0 && level1)
         {
-            Entity* coso = new Entity("puertalvl1", puertaTexture, 118, 640);
-            entities.push_back(coso);
+            Entity* puertaNivel1 = new Entity("puertalvl1", puertaTexture, 118, 640);
+            entities.push_back(puertaNivel1);
         }
         if (entities.size() == 0 && !level1)
         {
-            Entity* coso = new Entity("puertalvl2", puertaTexture, 118, 640);
-            entities.push_back(coso);
+            Entity* puertaNivel2 = new Entity("puertalvl2", puertaTexture, 118, 640);
+            entities.push_back(puertaNivel2);
         }
 
 

@@ -3,7 +3,7 @@
 
 int main()
 {
-	srand(time(NULL));
+	srand((unsigned)time(NULL));
 	sf::Music theme;
 	theme.openFromFile("music/theme.wav");
 	theme.setLoop(true);

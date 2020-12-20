@@ -16,8 +16,6 @@ class Character : public Entity
 	int carisma = 0;
 	int puntajeTotal = 0;
 
-	bool izq = false;
-
 	sf::SoundBuffer buffer2;
 	sf::Sound walkSound;
 
