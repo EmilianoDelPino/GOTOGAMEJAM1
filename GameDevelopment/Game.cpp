@@ -581,15 +581,15 @@ void Game::menuPregunta(bool disco)
     sf::Text title;
     sf::Text pregunta;
     sf::Text respuesta1;
-    sf::Text respeusta2;
+    sf::Text respuesta2;    
     title.setFont(font);
     pregunta.setFont(font);
-    respeusta2.setFont(font);
-    respuesta1.setFont(font);
+    pregunta.setFont(font);
+    respuesta1.setFont(font);   
     title.setFillColor(sf::Color(255, 255, 255));
     pregunta.setFillColor(sf::Color(255, 255, 255));
     respuesta1.setFillColor(sf::Color(255, 255, 255));
-    respeusta2.setFillColor(sf::Color(255, 255, 255));
+    pregunta.setFillColor(sf::Color(255, 255, 255));
 
     std::vector<std::string> preguntas(10);
 
@@ -625,18 +625,61 @@ void Game::menuPregunta(bool disco)
             "aaa"
         };
     }
+    int answer = rand() % 10;
+    switch (answer){
+    case 0: 
+        respuesta1.setString("Una cancion de Elvis Presley");
+        respuesta2.setString("Una cancion de Chuck Berry");//correcta
+        break;
+    case 1:
+        respuesta1.setString("La flauta magica");
+        respuesta2.setString("Madama Butterfly");//correcta
+        break;
+    case 2:
+        respuesta1.setString("Kurt Cobain");//correcta
+        respuesta2.setString("Jim Morrison");
+        break;
+    case 3:
+        respuesta1.setString("Finales de los 50/ principios de los 60");
+        respuesta2.setString("Finales de los 60/ principios de los 70");//correcta
+        break;
+    case 4:
+        respuesta1.setString("Where are we now?");//correcta
+        respuesta2.setString("Tie your mother down");
+        break;
+    case 5:
+        respuesta1.setString("2002");
+        respuesta2.setString("2003");//correcta
+        break;
+    case 6:
+        respuesta1.setString("Mozart");
+        respuesta2.setString("Vivaldi");//correcta
+        break;
+    case 7:
+        respuesta1.setString("1998");
+        respuesta2.setString("1999");//correcta
+        break;
+    case 8:
+        respuesta1.setString("Los del Rio");//correcta
+        respuesta2.setString("Los del Lago");
+        break;
+    case 9:
+        respuesta1.setString("Te aviso, te anuncio");
+        respuesta2.setString("Si te vas");//correcta
+        break;
+    }
+    
+    
 
-    preguntas[rand() % 10];
-
-    title.setString("Juego Terminado");
+    title.setString("TRIVIA");
     pregunta.setString("Puntos: " + std::to_string(player.carisma + player.inteligencia));
-    std::string algo(preguntas[9/*rand() % 10*/]);
-    respeusta2.setString(algo);
-    respeusta2.setCharacterSize(20);
-    respeusta2.setOrigin(respeusta2.getGlobalBounds().width / 2, respeusta2.getGlobalBounds().height / 2);
-    respeusta2.setPosition(720 / 2, 720 / 2);
+    std::string algo(preguntas[answer]);
+    pregunta.setString(algo);
+    pregunta.setCharacterSize(20);
+    pregunta.setOrigin(pregunta.getGlobalBounds().width / 2, pregunta.getGlobalBounds().height / 2);
+    pregunta.setPosition(720 / 2, 720 / 2);
 
-    respuesta1.setString("Presione ENTER para salir");
+    
     respuesta1.setCharacterSize(20);
     respuesta1.setOrigin(respuesta1.getGlobalBounds().width / 2, respuesta1.getGlobalBounds().height / 2);
     respuesta1.setPosition(720 / 2, 720 - respuesta1.getGlobalBounds().height * 2);
@@ -680,7 +723,6 @@ void Game::menuPregunta(bool disco)
                 exit = true;
             }*/
         }
-
         //backButton.update();
 
         window1.clear();
@@ -688,9 +730,7 @@ void Game::menuPregunta(bool disco)
         window1.draw(title);
         window1.draw(pregunta);
         window1.draw(respuesta1);
-        window1.draw(respeusta2);
+        window1.draw(pregunta);
         window1.display();
     }
-
-
 }
