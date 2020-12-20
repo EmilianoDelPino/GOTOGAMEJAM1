@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
+#include "SFML/Audio.hpp"
 
 enum class movement_type { UP, DOWN, LEFT, RIGHT };
 
@@ -16,6 +17,9 @@ class Character : public Entity
 	int puntajeTotal = 0;
 
 	bool izq = false;
+
+	sf::SoundBuffer buffer2;
+	sf::Sound walkSound;
 
 	void setPlayer();
 	void setTexturaPlayer();

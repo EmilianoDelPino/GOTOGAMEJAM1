@@ -44,4 +44,5 @@ void Character::movePlayer(float frame, movement_type movement)
 		_sprite.move(+this->velocidad, 0.0f);
 		_sprite.setTextureRect(sf::IntRect(sizeTexture.x * ((int)frame % 8), sizeTexture.y * 2, sizeTexture.x, sizeTexture.y));
 	}
+
 }
