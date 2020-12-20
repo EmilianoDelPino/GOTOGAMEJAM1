@@ -123,6 +123,12 @@ void Game::initializer()
     }
     //player._x = 30;
     //player._y = 720-150;
+
+    if (!buffer.loadFromFile("music/win.wav")) {
+        std::cout << "Error sound load" << std::endl;
+    }
+    winSound.setBuffer(buffer);
+
     gameLoop();
 }
 
@@ -514,6 +520,8 @@ void Game::gameOverScreen()
     otroTexto.setFillColor(sf::Color(255, 255, 255));
     textoDeRelleno.setFillColor(sf::Color(255, 255, 255));
 
+    winSound.play();
+
     title.setString("Juego Terminado");
     score.setString("Puntos: " + std::to_string(player.carisma + player.inteligencia));
     std::string algo("Bien! Felicidades, haz logrado\nincluir muchos conocimientos\na lo largo de esta aventura que\nte permitieron avanzar y\ndesarrollarte como persona, si\nbien fue dificil, no te rendiste\ny superaste tus adversidades.\nEstamos orgullosos de vos\nAtte: Elfos.exe developers");
@@ -601,7 +609,7 @@ void Game::menuPregunta(bool disco)
     pregunta.setFillColor(sf::Color(255, 255, 255));
     respuesta2.setFillColor(sf::Color(255, 255, 255));
     textoDeAbajo.setFillColor(sf::Color(255, 255, 255));
-    int correcta=0;
+    int correcta = 0;
     int answer = rand() % 10;
 
 

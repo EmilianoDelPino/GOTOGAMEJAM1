@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "SFML/Audio.hpp"
 #include "Character.h"
 #include "TileMap.h"
 #include "Entity.h"
@@ -45,6 +46,9 @@ public:
     std::vector<sf::FloatRect>vectorColisiones2;
 
     bool level1 = true;
+
+    sf::SoundBuffer buffer;
+    sf::Sound winSound;
 
     Game();
     void initializer();
