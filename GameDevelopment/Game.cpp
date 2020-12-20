@@ -350,7 +350,11 @@ void Game::eventListener()
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::N))
     {
-        menuPregunta(true);
+        menuPregunta(true);        
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+    {
+        menuPregunta(false);
     }
 }
 
@@ -677,17 +681,70 @@ void Game::menuPregunta(bool disco)
     {
         preguntas =
         {
-            "¿Cual fue la primera grabación de Rock and Roll?",
-            "Una de estas obras no es de Mozart. ¿Cual de ella?" ,
-            "¿Cual de los siguientes cantantes pronunció la frase 'Prefiero que me odien por lo que soy a que me admiren por lo que nunca seré'?",
-            "aaa",
-            "aaa",
-            "aaa",
-            "aaa",
-            "aaa",
-            "aaa",
-            "aaa"
+            "¿Quién fue el primer Presidente\nde Estados Unidos?",
+            "Nombre de la famosa batalla\ndonde Napoleon Bonaparte\nfue derrotado." ,
+            "A traves de que rio africano\nse alzo el antiguo Egipto??",
+            "El vomitorium era una\nsala especial presente en las\nfiestas romanas donde los\ncomensales podian ir y vomitar\npara dejar espacio en el\nestomago para mas comida.",
+            "A que filosofo griego se\natribuye la famosa obra\n'La Republica'?",
+            "¿En que año se disolvió\nla Unión Soviética ? ",
+            "¿Que civilización prehispánica\nadoro al dios Kukulkan?",
+            "El mundo lo conoce como Leonardo\nda Vinci.\n¿Que significa 'da Vinci?'",
+            "Julio Cesar nacio en el\naño 100 a.C.en el seno de\nuna familia patricia.\n¿Cual era su nombre de pila?",
+            "De que pais eran originarios los Samurais",
         };
+        switch (answer) {
+        case 0:
+
+            respuesta1.setString("1) George Washington");
+            respuesta2.setString("2) Abraham Lincoln");//correcta
+            correcta = 1;
+            break;
+        case 1:
+            respuesta1.setString("1) La batalla de Waterloo");
+            respuesta2.setString("2) La batalla de Stalingrado");//correcta
+            correcta = 1;
+            break;
+        case 2:
+            respuesta1.setString("1) Tigris");//correcta
+            respuesta2.setString("2) Nilo");
+            correcta = 2;
+            break;
+        case 3:
+            respuesta1.setString("1) Verdadero");
+            respuesta2.setString("2) Falso");//correcta
+            correcta = 2;
+            break;
+        case 4:
+            respuesta1.setString("1) Platon");//correcta
+            respuesta2.setString("2) Aristoteles");
+            correcta = 1;
+            break;
+        case 5:
+            respuesta1.setString("1) 1990");
+            respuesta2.setString("2) 1991");//correcta
+            correcta = 2;
+            break;
+        case 6:
+            respuesta1.setString("1) Incas");
+            respuesta2.setString("2) Mayas");//correcta
+            correcta = 2;
+            break;
+        case 7:
+            respuesta1.setString("1) Su apellido");
+            respuesta2.setString("2) Su lugar de procedencia");//correcta
+            correcta = 2;
+            break;
+        case 8:
+            respuesta1.setString("1) Cayo");//correcta
+            respuesta2.setString("2) Julio");
+            correcta = 1;
+            break;
+        case 9:
+            respuesta1.setString("1) China");
+            respuesta2.setString("2) Japon");//correcta
+            correcta = 2;
+            break;
+        }
     }
    
     
