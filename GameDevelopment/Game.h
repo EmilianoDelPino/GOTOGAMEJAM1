@@ -51,6 +51,7 @@ public:
 
     sf::SoundBuffer buffer;
     sf::Sound winSound;
+    sf::Image icon;
 
     Game();
     void initializer();

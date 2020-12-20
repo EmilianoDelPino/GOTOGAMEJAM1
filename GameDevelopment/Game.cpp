@@ -7,6 +7,8 @@ Game::Game()
 void Game::initializer()
 {
     font.loadFromFile("fonts/PressStart2P-Regular.ttf");
+    icon.loadFromFile("images/puerta.png");
+    
 
     inteligenciaText = new sf::Text();
     carismaText = new sf::Text();
@@ -76,6 +78,7 @@ void Game::initializer()
 
     window1.create(sf::VideoMode(720, 720), "The Game");
     window1.setFramerateLimit(60);
+    window1.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     //Mapa1
 
@@ -204,10 +207,11 @@ void Game::gameLoop() {
                             Entity* coso = new Entity("disco", discoTexture, 100, 100);
                             entities.push_back(coso);
                         }
-                        {
+                        cargarEntidadeslvl1();
+                        /*{
                             Entity* coso = new Entity("libro", libroTexture, 325, 105);
                             entities.push_back(coso);
-                        }
+                        }*/
                     }/*pasar de nivel*/
                     else {
                         level1 = false;
@@ -246,10 +250,11 @@ void Game::gameLoop() {
                             Entity* coso = new Entity("disco", discoTexture, 570, 605);
                             entities.push_back(coso);
                         }
-                        {
+                        /*{
                             Entity* coso = new Entity("libro", libroTexture, 545, 60);
                             entities.push_back(coso);
-                        }
+                        }*/
+                        cargarEntidadeslvl2();
                     }
                 }
 
