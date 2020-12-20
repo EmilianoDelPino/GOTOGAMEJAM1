@@ -8,25 +8,34 @@ void Game::initializer()
 {
     font.loadFromFile("fonts/PressStart2P-Regular.ttf");
 
-    inteligenciaText.setCharacterSize(15);
-    carismaText.setCharacterSize(15);
-    puntajeTotalText.setCharacterSize(15);
+    inteligenciaText = new sf::Text();
+    carismaText = new sf::Text();
+    puntajeTotalText = new sf::Text();
 
-    inteligenciaText.setFont(font);
-    carismaText.setFont(font);
-    puntajeTotalText.setFont(font);
 
-    inteligenciaText.setFillColor(sf::Color(0, 255, 0));
-    carismaText.setFillColor(sf::Color(0, 255, 0));
-    puntajeTotalText.setFillColor(sf::Color(0, 255, 0));
+    inteligenciaText->setCharacterSize(15);
+    carismaText->setCharacterSize(15);
+    puntajeTotalText->setCharacterSize(15);
 
-    inteligenciaText.setString("inteligencia: ");
-    carismaText.setString("carisma: ");
-    puntajeTotalText.setString("puntaje total:");
+    inteligenciaText->setFont(font);
+    carismaText->setFont(font);
+    puntajeTotalText->setFont(font);
 
-    inteligenciaText.setPosition(0, 0);
-    carismaText.setPosition(250, 0);
-    puntajeTotalText.setPosition(430, 0);
+    inteligenciaText->setFillColor(sf::Color(0, 255, 0));
+    carismaText->setFillColor(sf::Color(0, 255, 0));
+    puntajeTotalText->setFillColor(sf::Color(0, 255, 0));
+
+    inteligenciaText->setString("inteligencia: ");
+    carismaText->setString("carisma: ");
+    puntajeTotalText->setString("puntaje total:");
+
+    inteligenciaText->setPosition(0, 0);
+    carismaText->setPosition(250, 0);
+    puntajeTotalText->setPosition(430, 0);
+
+    textoParaMostrar.push_back(inteligenciaText);
+    textoParaMostrar.push_back(carismaText);
+    textoParaMostrar.push_back(puntajeTotalText);
 
     /*inteligenciaText
     carismaText
@@ -46,6 +55,7 @@ void Game::initializer()
 
     libroTexture.loadFromFile("images/libro.png");
     discoTexture.loadFromFile("images/disco.png");
+    puertaTexture.loadFromFile("images/puerta.png");
 
     ///-------------------------------------
     ///discos
@@ -80,6 +90,14 @@ void Game::initializer()
         Entity* coso = new Entity("libro", libroTexture, 600, 267);
         entities.push_back(coso);
     }
+
+    ///-------------------------------------
+    ///libros
+    ///-------------------------------------
+    /*{
+        Entity* coso = new Entity("puerta", puertaTexture, 118, 640);
+        entities.push_back(coso);
+    }*/
 
     window1.create(sf::VideoMode(720, 720), "The Game");
     window1.setFramerateLimit(60);
@@ -117,9 +135,9 @@ void Game::gameLoop() {
     
     while (window1.isOpen() && !gameOver)
     {
-        inteligenciaText.setString("inteligencia: " + std::to_string(player.inteligencia));
-        carismaText.setString("carisma: " + std::to_string(player.carisma));
-        puntajeTotalText.setString("puntaje total:" + std::to_string(player.inteligencia+ player.carisma));
+        inteligenciaText->setString("inteligencia: " + std::to_string(player.inteligencia));
+        carismaText->setString("carisma: " + std::to_string(player.carisma));
+        puntajeTotalText->setString("puntaje total:" + std::to_string(player.inteligencia+ player.carisma));
 
         frame += 0.3f;
         eventListener();
@@ -138,19 +156,69 @@ void Game::gameLoop() {
         }*/
 
 
+        if (entities.size() == 0)
+        {
+            Entity* coso = new Entity("puerta", puertaTexture, 118, 640);
+            entities.push_back(coso);
+        }
+
+
         for (auto entity : entities)
         {
             if (entity->_sprite.getGlobalBounds().intersects(player._sprite.getGlobalBounds()))
             {
-                entity->_life = 0;
+                
                 std::cout << "hola" << std::endl;
-                if (entity->_name.compare("disco"))
+                if (entity->_name.compare("disco")==0)
                 {
+                    entity->_life = 0;
                     player.carisma+=10;
                 }
-                if (entity->_name.compare("libro"))
+                if (entity->_name.compare("libro")==0)
                 {
+                    entity->_life = 0;
                     player.inteligencia+=10;
+                }
+                if (entity->_name.compare("puerta")==0)
+                {
+                    if ( (player.carisma + player.inteligencia )< 80)
+                    {
+                        entity->_life = 0;
+                        sf::Text* texto = new sf::Text();
+                        texto->setFont(font);
+                        texto->setString("Te faltan puntos");
+                        texto->setFillColor(sf::Color(0, 255, 0));
+                        texto->setPosition(0, 680);
+                        textoParaMostrar.push_back(texto);
+
+                        {
+                            Entity* coso = new Entity("disco", discoTexture, 100, 100);
+                            entities.push_back(coso);
+                        }
+                        {
+                            Entity* coso = new Entity("libro", libroTexture, 325, 105);
+                            entities.push_back(coso);
+                        }
+                    }/*pasar de nivel*/
+
+                    
+                    //pasar al siguiente mapa
+                }
+
+                if ((player.carisma + player.inteligencia) >= 80)
+                {
+                    for (auto i = textoParaMostrar.begin(); i != textoParaMostrar.end();)
+                    {
+                        sf::Text* e = *i;
+                        
+                        if (std::string(e->getString()).compare("Te faltan puntos") == 0)
+                        {
+                            delete e;
+                            i = textoParaMostrar.erase(i);
+                        }else
+                            i++;
+                        
+                    }
                 }
 
             }
@@ -224,10 +292,15 @@ void Game::drawWindow() {
         entity->draw(window1);
     }
 
+    for (auto texto : textoParaMostrar)
+    {
+        window1.draw(*texto);
+    }
     
-    window1.draw(inteligenciaText);
-    window1.draw(carismaText);
-    window1.draw(puntajeTotalText);
+    /*window1.draw(*inteligenciaText);
+    window1.draw(*carismaText);
+    window1.draw(*puntajeTotalText);*/
+
 
 
     window1.display();

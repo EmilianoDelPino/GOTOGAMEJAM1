@@ -10,9 +10,10 @@ class Game
 public:
     sf::Font font;
 
-    sf::Text inteligenciaText;
-    sf::Text carismaText;
-    sf::Text puntajeTotalText;
+    sf::Text *inteligenciaText;
+    sf::Text *carismaText;
+    sf::Text *puntajeTotalText;
+    std::list<sf::Text*> textoParaMostrar;
     
     float frame = 0.f;
 
@@ -30,8 +31,11 @@ public:
 
     std::list<Entity*> entities;
 
+    
+
     sf::Texture libroTexture;
     sf::Texture discoTexture;
+    sf::Texture puertaTexture;
 
     std::vector<sf::FloatRect>vectorColisiones;
 
