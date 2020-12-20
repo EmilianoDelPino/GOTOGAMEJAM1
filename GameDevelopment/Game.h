@@ -52,5 +52,9 @@ public:
     void eventListener();
     void gameLoop();
     bool CanItMove(movement_type type, Character* player);
+    void cargarEntidadeslvl1();
+    void cargarEntidadeslvl2();
+    void gameOverScreen();
+
 };
 

@@ -64,35 +64,7 @@ void Game::initializer()
     ///discos
     ///-------------------------------------
 
-    {
-        Entity* coso = new Entity("disco",discoTexture,215,720-210);
-        entities.push_back(coso);
-    }
-    {
-        Entity* coso = new Entity("disco", discoTexture, 325, 105);
-        entities.push_back(coso);
-    }
-    {
-        Entity* coso = new Entity("disco", discoTexture, 200, 350);
-        entities.push_back(coso);
-    }
-
-    ///-------------------------------------
-    ///libros
-    ///-------------------------------------
-
-    {
-        Entity* coso = new Entity("libro", libroTexture, 545, 60);
-        entities.push_back(coso);
-    }
-    {
-        Entity* coso = new Entity("libro", libroTexture, 290, 315);
-        entities.push_back(coso);
-    }
-    {
-        Entity* coso = new Entity("libro", libroTexture, 600, 267);
-        entities.push_back(coso);
-    }
+    cargarEntidadeslvl1();
 
     ///-------------------------------------
     ///libros
@@ -125,18 +97,14 @@ void Game::initializer()
         }
         i++;
     }
-
     if (!mapTiles.load("images/tileset.png", sf::Vector2u(36, 36), level, 20, 20)) {
         std::cout << "Error en la carga de ID de tiles en el mapTiles.load" << std::endl;
     }
-
     //Mapa 2
-
     int level2[] =
     {
         311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 0, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 311, 311, 311, 311, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 311, 311, 311, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 311, 311, 311, 311, 311, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311
     };
-
     int i2 = 0;
     for (auto x2 : level2) {
         if (level2[i2] != 0) {
@@ -150,14 +118,11 @@ void Game::initializer()
         }
         i2++;
     }
-
     if (!mapTiles2.load("images/tileset.png", sf::Vector2u(36, 36), level2, 20, 20)) {
         std::cout << "Error en la carga de ID de tiles en el mapTiles.load" << std::endl;
     }
-
     //player._x = 30;
     //player._y = 720-150;
-    
     gameLoop();
 }
 
@@ -186,9 +151,14 @@ void Game::gameLoop() {
         }*/
 
 
-        if (entities.size() == 0)
+        if (entities.size() == 0 && level1)
         {
-            Entity* coso = new Entity("puerta", puertaTexture, 118, 640);
+            Entity* coso = new Entity("puertalvl1", puertaTexture, 118, 640);
+            entities.push_back(coso);
+        }
+        if (entities.size() == 0 && !level1)
+        {
+            Entity* coso = new Entity("puertalvl2", puertaTexture, 118, 640);
             entities.push_back(coso);
         }
 
@@ -209,7 +179,7 @@ void Game::gameLoop() {
                     entity->_life = 0;
                     player.inteligencia+=10;
                 }
-                if (entity->_name.compare("puerta")==0)
+                if (entity->_name.compare("puertalvl1")==0)
                 {
                     entity->_life = 0;
                     if ( (player.carisma + player.inteligencia )< 80)
@@ -233,17 +203,45 @@ void Game::gameLoop() {
                     else {
                         level1 = false;
 
+                        /*for (auto i = entities.begin(); i != entities.end();)
                         {
-                            Entity* coso = new Entity("disco", discoTexture, 100, 100);
-                            entities.push_back(coso);
-                        }
-                        {
-                            Entity* coso = new Entity("libro", libroTexture, 325, 105);
-                            entities.push_back(coso);
-                        }
+                            Entity* e = *i;
+                            delete e;
+                            i = entities.erase(i);
+                        }*/
+                        cargarEntidadeslvl2();
                     }
                     
                     //pasar al siguiente mapa
+                }
+
+                if (entity->_name.compare("puertalvl2") == 0)
+                {
+                    entity->_life = 0;
+                    if ((player.carisma + player.inteligencia) >= 160)
+                    {
+                        gameOver = true;
+                        gameOverScreen();
+
+                        for (auto i = entities.begin(); i != entities.end();)
+                        {
+                            Entity* e = *i;
+                            delete e;
+                            i = entities.erase(i);
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        {
+                            Entity* coso = new Entity("disco", discoTexture, 570, 605);
+                            entities.push_back(coso);
+                        }
+                        {
+                            Entity* coso = new Entity("libro", libroTexture, 545, 60);
+                            entities.push_back(coso);
+                        }
+                    }
                 }
 
                 if ((player.carisma + player.inteligencia) >= 80)
@@ -317,6 +315,37 @@ void Game::eventListener()
     {
         player.movePlayer(frame, movement_type::LEFT);
     }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+    {
+        level1 = level1 ? false : true;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+    {
+        for (auto i = entities.begin(); i != entities.end();)
+        {
+            Entity* e = *i;
+            delete e;
+            i = entities.erase(i);
+        }
+        cargarEntidadeslvl1();
+        
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+    {
+        for (auto i = entities.begin(); i != entities.end();)
+        {
+            Entity* e = *i;
+            delete e;
+            i = entities.erase(i);
+        }
+        cargarEntidadeslvl2();
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::J))
+    {
+        gameOver = true;
+        gameOverScreen();
+    }
 }
 
 void Game::drawWindow() {
@@ -361,7 +390,6 @@ bool Game::CanItMove(movement_type type, Character* player)
     //width
     futurePlayerRect.width /= 3;
     futurePlayerRect.left += futurePlayerRect.width;
-
     //Prepparing position
     switch (type)
     {
@@ -378,7 +406,6 @@ bool Game::CanItMove(movement_type type, Character* player)
         futurePlayerRect.left += player->velocidad;
         break;
     }
-
     if(level1){
     //Check collision for level 1
     for (auto &x : vectorColisiones)
@@ -398,7 +425,149 @@ bool Game::CanItMove(movement_type type, Character* player)
     //No collision found
     return true;
     }
+}
+
+void Game::cargarEntidadeslvl1()
+{
+    {
+        Entity* coso = new Entity("disco", discoTexture, 215, 720 - 210);
+        entities.push_back(coso);
+    }
+    {
+        Entity* coso = new Entity("disco", discoTexture, 325, 105);
+        entities.push_back(coso);
+    }
+    {
+        Entity* coso = new Entity("disco", discoTexture, 200, 350);
+        entities.push_back(coso);
+    }
+    {
+        Entity* coso = new Entity("libro", libroTexture, 545, 60);
+        entities.push_back(coso);
+    }
+    {
+        Entity* coso = new Entity("libro", libroTexture, 290, 315);
+        entities.push_back(coso);
+    }
+    {
+        Entity* coso = new Entity("libro", libroTexture, 600, 267);
+        entities.push_back(coso);
+    }
+}
 
 
+void Game::cargarEntidadeslvl2()
+{
+    {
+        Entity* coso = new Entity("disco", discoTexture, 215 - 50 + 10, 720 - 210);
+        entities.push_back(coso);
+    }
+    {
+        Entity* coso = new Entity("disco", discoTexture, 365, 105);
+        entities.push_back(coso);
+    }
+    {
+        Entity* coso = new Entity("disco", discoTexture, 190, 360);
+        entities.push_back(coso);
+    }
+    {
+        Entity* coso = new Entity("disco", discoTexture, 570, 605);
+        entities.push_back(coso);
+    }
+    {
+        Entity* coso = new Entity("libro", libroTexture, 545, 60);
+        entities.push_back(coso);
+    }
+    {
+        Entity* coso = new Entity("libro", libroTexture, 360, 245);
+        entities.push_back(coso);
+    }
+    {
+        Entity* coso = new Entity("libro", libroTexture, 620, 245);
+        entities.push_back(coso);
+    }
+}
+
+
+void Game::gameOverScreen()
+{
+
+
+    sf::Text title;
+    sf::Text score;
+    sf::Text otroTexto;
+    sf::Text textoDeRelleno;
+    title.setFont(font);
+    score.setFont(font);
+    textoDeRelleno.setFont(font);
+    otroTexto.setFont(font);
+    title.setFillColor(sf::Color(255, 255, 255));
+    score.setFillColor(sf::Color(255, 255, 255));
+    otroTexto.setFillColor(sf::Color(255, 255, 255));
+    textoDeRelleno.setFillColor(sf::Color(255, 255, 255));
+
+    title.setString("Juego Terminado");
+    score.setString("Puntos: " + std::to_string(player.carisma + player.inteligencia));
+    std::string algo("Bien! Felicidades, haz logrado\nincluir muchos conocimientos\na lo largo de esta aventura que\nte permitieron avanzar y\ndesarrollarte como persona, si\nbien fue dificil, no te rendiste\ny superaste tus adversidades.\nEstamos orgullosos de vos\nAtte: Elfos.exe developers");
+    textoDeRelleno.setString(algo);
+    textoDeRelleno.setCharacterSize(20);
+    textoDeRelleno.setOrigin(textoDeRelleno.getGlobalBounds().width / 2, textoDeRelleno.getGlobalBounds().height / 2);
+    textoDeRelleno.setPosition(720 / 2, 720 / 2);
+
+    otroTexto.setString("Presione ENTER para salir");
+    otroTexto.setCharacterSize(20);
+    otroTexto.setOrigin(otroTexto.getGlobalBounds().width / 2, otroTexto.getGlobalBounds().height / 2);
+    otroTexto.setPosition(720 / 2, 720- otroTexto.getGlobalBounds().height * 2);
+    
+
+    title.setOrigin(title.getGlobalBounds().width / 2, title.getGlobalBounds().height / 2);
+    title.setPosition(720 / 2, 50);
+
+    score.setOrigin(score.getGlobalBounds().width / 2, score.getGlobalBounds().height / 2);
+    score.setPosition(720 / 2, 100);
+
+    bool exit = false;
+    while (window1.isOpen() && !exit)
+    {
+        sf::Event event1;
+        while (window1.pollEvent(event1))
+        {
+            if (event1.type == sf::Event::Closed)
+                window1.close();
+            if (event1.type == sf::Event::MouseMoved)
+            {
+                /*if (backButton.checkMouseColition(window1))
+                {
+                    backButton.updateSelection(true);
+                }
+                else
+                {
+                    backButton.updateSelection(false);
+                }*/
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            {
+                exit = true;
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+            {
+                exit = true;
+            }
+            /*if (backButton.isClicked(window1))
+            {
+                exit = true;
+            }*/
+        }
+
+        //backButton.update();
+
+        window1.clear();
+       // backButton.draw(window1);
+        window1.draw(title);
+        window1.draw(score);
+        window1.draw(otroTexto);
+        window1.draw(textoDeRelleno);
+        window1.display();
+    }
 
 }
