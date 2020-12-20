@@ -22,22 +22,29 @@ public:
     sf::Event event;
 
     Character player;
+
     sf::Texture mapTexture;
     sf::Sprite map;
     
     sf::Texture mapTilesTexture;
     sf::Sprite mapTilesSprite;
+
+    sf::Texture mapTilesTexture2;
+    sf::Sprite mapTilesSprite2;
+
     TileMap mapTiles;
+    TileMap mapTiles2;
 
     std::list<Entity*> entities;
-
-    
 
     sf::Texture libroTexture;
     sf::Texture discoTexture;
     sf::Texture puertaTexture;
 
     std::vector<sf::FloatRect>vectorColisiones;
+    std::vector<sf::FloatRect>vectorColisiones2;
+
+    bool level1 = true;
 
     Game();
     void initializer();

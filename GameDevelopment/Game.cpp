@@ -53,6 +53,9 @@ void Game::initializer()
     mapTilesTexture.loadFromFile("images/map2.png");
     mapTilesSprite.setTexture(mapTilesTexture);
 
+    mapTilesTexture2.loadFromFile("images/map3.png");
+    mapTilesSprite2.setTexture(mapTilesTexture2);
+
     libroTexture.loadFromFile("images/libro.png");
     discoTexture.loadFromFile("images/disco.png");
     puertaTexture.loadFromFile("images/puerta.png");
@@ -102,6 +105,8 @@ void Game::initializer()
     window1.create(sf::VideoMode(720, 720), "The Game");
     window1.setFramerateLimit(60);
 
+    //Mapa1
+
     int level[] =
     {
         311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 0, 0, 0, 0, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 0, 0, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 0, 0, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 0, 0, 311, 0, 0, 0, 311, 311, 311, 311, 0, 0, 0, 0, 0, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 0, 0, 0, 0, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 0, 0, 0, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 0, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 0, 0, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311
@@ -122,6 +127,31 @@ void Game::initializer()
     }
 
     if (!mapTiles.load("images/tileset.png", sf::Vector2u(36, 36), level, 20, 20)) {
+        std::cout << "Error en la carga de ID de tiles en el mapTiles.load" << std::endl;
+    }
+
+    //Mapa 2
+
+    int level2[] =
+    {
+        311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 0, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 311, 311, 311, 311, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 311, 311, 311, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 311, 311, 311, 0, 0, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 0, 0, 0, 0, 311, 311, 311, 311, 311, 0, 0, 0, 0, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311, 311
+    };
+
+    int i2 = 0;
+    for (auto x2 : level2) {
+        if (level2[i2] != 0) {
+            level2[i2] -= 1;
+            //sf::RectangleShape shape2;
+            //shape2.setFillColor(sf::Color::Blue);
+            //shape2.setSize(sf::Vector2f(36.f, 36.f));
+            //shape2.setPosition(i2 % 20 * 36, i2 / 20 * 36);
+
+            vectorColisiones2.push_back(sf::FloatRect(i2 % 20 * 36, i2 / 20 * 36, 36, 36));
+        }
+        i2++;
+    }
+
+    if (!mapTiles2.load("images/tileset.png", sf::Vector2u(36, 36), level2, 20, 20)) {
         std::cout << "Error en la carga de ID de tiles en el mapTiles.load" << std::endl;
     }
 
@@ -181,9 +211,9 @@ void Game::gameLoop() {
                 }
                 if (entity->_name.compare("puerta")==0)
                 {
+                    entity->_life = 0;
                     if ( (player.carisma + player.inteligencia )< 80)
                     {
-                        entity->_life = 0;
                         sf::Text* texto = new sf::Text();
                         texto->setFont(font);
                         texto->setString("Te faltan puntos");
@@ -200,7 +230,18 @@ void Game::gameLoop() {
                             entities.push_back(coso);
                         }
                     }/*pasar de nivel*/
+                    else {
+                        level1 = false;
 
+                        {
+                            Entity* coso = new Entity("disco", discoTexture, 100, 100);
+                            entities.push_back(coso);
+                        }
+                        {
+                            Entity* coso = new Entity("libro", libroTexture, 325, 105);
+                            entities.push_back(coso);
+                        }
+                    }
                     
                     //pasar al siguiente mapa
                 }
@@ -281,11 +322,17 @@ void Game::eventListener()
 void Game::drawWindow() {
     window1.clear();
 
-    //window1.draw(algo);   EJEMPLO
-
+    if(level1){
+    // Mapa 1
     window1.draw(mapTilesSprite);
-   // window1.draw(mapTiles);
-
+    //window1.draw(mapTiles);
+    }
+    else{
+    // Mapa 2
+    window1.draw(mapTilesSprite2);
+    //window1.draw(mapTiles2);
+    }
+    //
     player.draw(window1);
     for (auto entity : entities)
     {
@@ -300,8 +347,6 @@ void Game::drawWindow() {
     /*window1.draw(*inteligenciaText);
     window1.draw(*carismaText);
     window1.draw(*puntajeTotalText);*/
-
-
 
     window1.display();
 }
@@ -334,12 +379,26 @@ bool Game::CanItMove(movement_type type, Character* player)
         break;
     }
 
-    //Check collision
+    if(level1){
+    //Check collision for level 1
     for (auto &x : vectorColisiones)
         if (futurePlayerRect.intersects(x))
             //collision found
             return false;
     //No collision found
     return true;
+    }
+    //--------
+    else{
+    //Check collision for level 2
+    for (auto& x2 : vectorColisiones2)
+        if (futurePlayerRect.intersects(x2))
+            //collision found
+            return false;
+    //No collision found
+    return true;
+    }
+
+
 
 }
