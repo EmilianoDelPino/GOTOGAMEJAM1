@@ -128,6 +128,7 @@ void Game::initializer()
         std::cout << "Error sound load" << std::endl;
     }
     winSound.setBuffer(buffer);
+    winSound.setVolume(30.f);
 
     gameLoop();
 }
