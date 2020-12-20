@@ -40,6 +40,6 @@ public:
     void drawWindow();
     void eventListener();
     void gameLoop();
-
+    bool CanItMove(movement_type type, Character* player);
 };
 

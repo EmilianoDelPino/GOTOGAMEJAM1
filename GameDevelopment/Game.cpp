@@ -36,6 +36,7 @@ void Game::initializer()
     
     player.setTexturaPlayer();
     player.setPlayer();
+    player._sprite.setPosition(sf::Vector2f(100, 100));
 
     mapTexture.loadFromFile("images/map.png");
     map.setTexture(mapTexture);
@@ -106,8 +107,8 @@ void Game::initializer()
         std::cout << "Error en la carga de ID de tiles en el mapTiles.load" << std::endl;
     }
 
-    player._x = 30;
-    player._y = 720-150;
+    //player._x = 30;
+    //player._y = 720-150;
     
     gameLoop();
 }
@@ -125,15 +126,16 @@ void Game::gameLoop() {
         ///----------------------------
         ///actualizar las cosas
         ///----------------------------
-        sf::FloatRect cosita;
-        for (auto &col : vectorColisiones) {
+       /*sf::FloatRect colisiones;
+       for (auto &col : vectorColisiones) {
             player._sprite.setOrigin(0, 0);
-            cosita=sf::FloatRect(sf::Vector2f(player._x+15, player._y + player._sprite.getGlobalBounds().height), sf::Vector2f(20/*player._sprite.getGlobalBounds().width -20 */, 5));
-            if (col.intersects(cosita)) {
+            colisiones=sf::FloatRect(sf::Vector2f(player._x+15, player._y + player._sprite.getGlobalBounds().height), sf::Vector2f(20
+                //player._sprite.getGlobalBounds().width -20, 5));
+            if (col.intersects(colisiones)) {
             //if (player._sprite.getGlobalBounds().intersects(col)) {
                 std::cout << "Colision" << std::endl;
             }
-        }
+        }*/
 
 
         for (auto entity : entities)
@@ -170,7 +172,6 @@ void Game::gameLoop() {
             
         }
 
-        player.movePlayer(frame);
         drawWindow();
 
     }
@@ -190,6 +191,23 @@ void Game::eventListener()
         std::cout <<"y: "<< localPosition.y << std::endl;
     }
 
+    //Player movement
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && CanItMove(movement_type::UP, &player))
+    {
+        player.movePlayer(frame, movement_type::UP);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && CanItMove(movement_type::DOWN, &player))
+    {
+        player.movePlayer(frame, movement_type::DOWN);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && CanItMove(movement_type::RIGHT, &player))
+    {
+        player.movePlayer(frame, movement_type::RIGHT);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && CanItMove(movement_type::LEFT, &player))
+    {
+        player.movePlayer(frame, movement_type::LEFT);
+    }
 }
 
 void Game::drawWindow() {
@@ -215,3 +233,40 @@ void Game::drawWindow() {
     window1.display();
 }
 
+bool Game::CanItMove(movement_type type, Character* player)
+{
+    sf::FloatRect futurePlayerRect = player->_sprite.getGlobalBounds();
+    //Changing dimensions
+    //height
+    futurePlayerRect.height /= 4;
+    futurePlayerRect.top += (futurePlayerRect.height * 3);
+    //width
+    futurePlayerRect.width /= 3;
+    futurePlayerRect.left += futurePlayerRect.width;
+
+    //Prepparing position
+    switch (type)
+    {
+    case movement_type::UP:
+        futurePlayerRect.top -= player->velocidad;
+        break;
+    case movement_type::DOWN:
+        futurePlayerRect.top += player->velocidad;
+        break;
+    case movement_type::LEFT:
+        futurePlayerRect.left -= player->velocidad;
+        break;
+    case movement_type::RIGHT:
+        futurePlayerRect.left += player->velocidad;
+        break;
+    }
+
+    //Check collision
+    for (auto &x : vectorColisiones)
+        if (futurePlayerRect.intersects(x))
+            //collision found
+            return false;
+    //No collision found
+    return true;
+
+}
