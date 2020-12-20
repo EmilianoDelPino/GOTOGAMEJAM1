@@ -6,6 +6,8 @@
 #include "Entity.h"
 #include <list>
 
+enum class answerType { CORRECT, INCORRECT };
+
 class Game
 {
 public:
@@ -59,7 +61,9 @@ public:
     void cargarEntidadeslvl1();
     void cargarEntidadeslvl2();
     void gameOverScreen();
-    void menuPregunta(bool);
+    void resultScreen(answerType type);
+
+    bool menuPregunta(bool disco);
 
 };
 

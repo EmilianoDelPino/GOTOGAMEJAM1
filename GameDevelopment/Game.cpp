@@ -178,14 +178,14 @@ void Game::gameLoop() {
                 if (entity->_name.compare("disco")==0)
                 {
                     entity->_life = 0;
-                    menuPregunta(true);
-                    //player.carisma+=10;
+                    if (menuPregunta(true)) resultScreen(answerType::CORRECT);
+                    else resultScreen(answerType::INCORRECT);
                 }
                 if (entity->_name.compare("libro")==0)
                 {
                     entity->_life = 0;
-                    menuPregunta(false);
-                    //player.inteligencia+=10;
+                    if (menuPregunta(false)) resultScreen(answerType::CORRECT);
+                    else resultScreen(answerType::INCORRECT);
                 }
                 if (entity->_name.compare("puertalvl1")==0)
                 {
@@ -590,25 +590,28 @@ void Game::gameOverScreen()
 
 
 
-void Game::menuPregunta(bool disco)
+bool Game::menuPregunta(bool disco)
 {
     sf::Text title;
     sf::Text pregunta;
     sf::Text respuesta1;
     sf::Text respuesta2;    
     sf::Text textoDeAbajo;
+
     title.setFont(font);
     pregunta.setFont(font);
     pregunta.setFont(font);
     respuesta1.setFont(font);   
     respuesta2.setFont(font);
     textoDeAbajo.setFont(font);
+
     title.setFillColor(sf::Color(255, 255, 255));
     pregunta.setFillColor(sf::Color(255, 255, 255));
     respuesta1.setFillColor(sf::Color(255, 255, 255));
     pregunta.setFillColor(sf::Color(255, 255, 255));
     respuesta2.setFillColor(sf::Color(255, 255, 255));
     textoDeAbajo.setFillColor(sf::Color(255, 255, 255));
+
     int correcta = 0;
     int answer = rand() % 10;
 
@@ -705,17 +708,17 @@ void Game::menuPregunta(bool disco)
 
             respuesta1.setString("1) George Washington");
             respuesta2.setString("2) Abraham Lincoln");//correcta
-            correcta = 1;
+            correcta = 2;
             break;
         case 1:
             respuesta1.setString("1) La batalla de Waterloo");
             respuesta2.setString("2) La batalla de Stalingrado");//correcta
-            correcta = 1;
+            correcta = 2;
             break;
         case 2:
             respuesta1.setString("1) Tigris");//correcta
             respuesta2.setString("2) Nilo");
-            correcta = 2;
+            correcta = 1;
             break;
         case 3:
             respuesta1.setString("1) Verdadero");
@@ -789,8 +792,8 @@ void Game::menuPregunta(bool disco)
     /*pregunta.setOrigin(pregunta.getGlobalBounds().width / 2, pregunta.getGlobalBounds().height / 2);
     pregunta.setPosition(720 / 2, 100);*/
 
-    bool exit = false;
-    while (window1.isOpen() && !exit)
+
+    while (window1.isOpen())
     {
         sf::Event event1;
         while (window1.pollEvent(event1))
@@ -810,11 +813,11 @@ void Game::menuPregunta(bool disco)
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
-                exit = true;
+                return false;
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
             {
-                exit = true;
+                return false;
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1))
             {
@@ -828,10 +831,11 @@ void Game::menuPregunta(bool disco)
                     {
                         player.inteligencia += 10;
                     }
+                    return true;
                 }
-                ///algo
-                exit = true;
-            }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2))
+                return false;
+            }
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2))
             {
                 if (correcta == 2)
                 {
@@ -843,9 +847,9 @@ void Game::menuPregunta(bool disco)
                     {
                         player.inteligencia += 10;
                     }
+                    return true;
                 }
-                
-                exit = true;
+                return false;
             }
 
             /*if (backButton.isClicked(window1))
@@ -865,4 +869,55 @@ void Game::menuPregunta(bool disco)
         window1.draw(textoDeAbajo);
         window1.display();
     }
+    return false;
+}
+
+void Game::resultScreen(answerType type)
+{
+    sf::Text result;
+    sf::Text exitText;
+
+    result.setFont(font);
+    result.setFillColor(sf::Color(255, 255, 255));
+    
+
+    exitText.setFont(font);
+    exitText.setFillColor(sf::Color(255, 255, 255));
+    exitText.setCharacterSize(20);
+    exitText.setString("Presiona ENTER para salir.");
+    exitText.setOrigin(exitText.getGlobalBounds().width / 2, exitText.getGlobalBounds().height / 2);
+    exitText.setPosition(window1.getSize().x / 2.f, (window1.getSize().y / 4.f) * 3);
+
+    switch (type)
+    {
+    case answerType::CORRECT:
+        result.setString("RESPUESTA CORRECTA");
+        break;
+    case answerType::INCORRECT:
+        result.setString("RESPUESTA Incorrecta");
+        break;
+    default:
+        result.setString("ERROR");
+    }
+
+    result.setOrigin(result.getGlobalBounds().width / 2, result.getGlobalBounds().height / 2);
+    result.setPosition(window1.getSize().x / 2.f, window1.getSize().y / 3.f);
+
+    while (window1.isOpen())
+    {
+        window1.clear();
+        window1.draw(result);
+        window1.draw(exitText);
+        window1.display();
+        sf::Event event1;
+        while (window1.pollEvent(event1))
+        {
+            if (event1.type == sf::Event::Closed)
+                window1.close();
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+                return;
+        }
+    }
+
+    return;
 }
