@@ -76,7 +76,7 @@ void Game::initializer()
         entities.push_back(coso);
     }*/
 
-    window1.create(sf::VideoMode(720, 720), "The Game");
+    window1.create(sf::VideoMode(720, 720), "Don't Surrender");
     window1.setFramerateLimit(60);
     window1.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
@@ -215,14 +215,14 @@ void Game::gameLoop() {
                     }/*pasar de nivel*/
                     else {
                         level1 = false;
-
-                        /*for (auto i = entities.begin(); i != entities.end();)
+                        for (auto i = entities.begin(); i != entities.end();)
                         {
                             Entity* e = *i;
                             delete e;
                             i = entities.erase(i);
-                        }*/
+                        }
                         cargarEntidadeslvl2();
+                        break;
                     }
                     
                     //pasar al siguiente mapa
@@ -306,11 +306,7 @@ void Game::eventListener()
         if (event.type == sf::Event::Closed)
             window1.close();
     }
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        sf::Vector2i localPosition = sf::Mouse::getPosition(window1);
-        std::cout <<"x: "<< localPosition.x << std::endl;
-        std::cout <<"y: "<< localPosition.y << std::endl;
-    }
+    
 
     //Player movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && CanItMove(movement_type::UP, &player))
@@ -329,7 +325,12 @@ void Game::eventListener()
     {
         player.movePlayer(frame, movement_type::LEFT);
     }
-
+/*
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        sf::Vector2i localPosition = sf::Mouse::getPosition(window1);
+        std::cout <<"x: "<< localPosition.x << std::endl;
+        std::cout <<"y: "<< localPosition.y << std::endl;
+    }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
     {
         level1 = level1 ? false : true;
@@ -368,6 +369,7 @@ void Game::eventListener()
     {
         menuPregunta(false);
     }
+*/
 }
 
 void Game::drawWindow() {
