@@ -172,12 +172,14 @@ void Game::gameLoop() {
                 if (entity->_name.compare("disco")==0)
                 {
                     entity->_life = 0;
-                    player.carisma+=10;
+                    menuPregunta(true);
+                    //player.carisma+=10;
                 }
                 if (entity->_name.compare("libro")==0)
                 {
                     entity->_life = 0;
-                    player.inteligencia+=10;
+                    menuPregunta(false);
+                    //player.inteligencia+=10;
                 }
                 if (entity->_name.compare("puertalvl1")==0)
                 {
@@ -582,17 +584,24 @@ void Game::menuPregunta(bool disco)
     sf::Text pregunta;
     sf::Text respuesta1;
     sf::Text respuesta2;    
+    sf::Text textoDeAbajo;
     title.setFont(font);
     pregunta.setFont(font);
     pregunta.setFont(font);
     respuesta1.setFont(font);   
+    respuesta2.setFont(font);
+    textoDeAbajo.setFont(font);
     title.setFillColor(sf::Color(255, 255, 255));
     pregunta.setFillColor(sf::Color(255, 255, 255));
     respuesta1.setFillColor(sf::Color(255, 255, 255));
     pregunta.setFillColor(sf::Color(255, 255, 255));
+    respuesta2.setFillColor(sf::Color(255, 255, 255));
+    textoDeAbajo.setFillColor(sf::Color(255, 255, 255));
+    int correcta=0;
+    int answer = rand() % 10;
+
 
     std::vector<std::string> preguntas(10);
-
     if (disco)
     {
         preguntas = 
@@ -608,6 +617,61 @@ void Game::menuPregunta(bool disco)
             "El baile 'La Macarena', sacudio al\nmundo desde 1996. ¿Recuerdas quien\ncantaba esta canción ?.",
             "Shakira es recordada por sus\ninteligentes y divertidas\nfrases, ¿recuerdas a qué\ncanción pertenece su lírica\n'Si me cambias, por esa\nbruja pedazo de cuero, no\nvuelvas nunca mas ?' "
         };
+        switch (answer) {
+        case 0:
+
+            respuesta1.setString("1) Una cancion de Elvis Presley");
+            respuesta2.setString("2) Una cancion de Chuck Berry");//correcta
+            correcta = 2;
+            break;
+        case 1:
+            respuesta1.setString("1) La flauta magica");
+            respuesta2.setString("2) Madama Butterfly");//correcta
+            correcta = 2;
+            break;
+        case 2:
+            respuesta1.setString("1) Kurt Cobain");//correcta
+            respuesta2.setString("2) Jim Morrison");
+            correcta = 1;
+            break;
+        case 3:
+            respuesta1.setString("1) Finales de los 50/ principios de los 60");
+            respuesta2.setString("2) Finales de los 60/ principios de los 70");//correcta
+            correcta = 2;
+            break;
+        case 4:
+            respuesta1.setString("1) Where are we now?");//correcta
+            respuesta2.setString("2) Tie your mother down");
+            correcta = 1;
+            break;
+        case 5:
+            respuesta1.setString("1) 2002");
+            respuesta2.setString("2) 2003");//correcta
+            correcta = 2;
+            break;
+        case 6:
+            respuesta1.setString("1) Mozart");
+            respuesta2.setString("2) Vivaldi");//correcta
+            correcta = 2;
+            break;
+        case 7:
+            respuesta1.setString("1) 1998");
+            respuesta2.setString("2) 1999");//correcta
+            correcta = 2;
+            break;
+        case 8:
+            respuesta1.setString("1) Los del Rio");//correcta
+            respuesta2.setString("2) Los del Lago");
+            correcta = 1;
+            break;
+        case 9:
+            respuesta1.setString("1) Te aviso, te anuncio");
+            respuesta2.setString("2) Si te vas");//correcta
+            correcta = 2;
+            break;
+        }
+
+
     }
     else
     {
@@ -625,71 +689,40 @@ void Game::menuPregunta(bool disco)
             "aaa"
         };
     }
-    int answer = rand() % 10;
-    switch (answer){
-    case 0: 
-        respuesta1.setString("Una cancion de Elvis Presley");
-        respuesta2.setString("Una cancion de Chuck Berry");//correcta
-        break;
-    case 1:
-        respuesta1.setString("La flauta magica");
-        respuesta2.setString("Madama Butterfly");//correcta
-        break;
-    case 2:
-        respuesta1.setString("Kurt Cobain");//correcta
-        respuesta2.setString("Jim Morrison");
-        break;
-    case 3:
-        respuesta1.setString("Finales de los 50/ principios de los 60");
-        respuesta2.setString("Finales de los 60/ principios de los 70");//correcta
-        break;
-    case 4:
-        respuesta1.setString("Where are we now?");//correcta
-        respuesta2.setString("Tie your mother down");
-        break;
-    case 5:
-        respuesta1.setString("2002");
-        respuesta2.setString("2003");//correcta
-        break;
-    case 6:
-        respuesta1.setString("Mozart");
-        respuesta2.setString("Vivaldi");//correcta
-        break;
-    case 7:
-        respuesta1.setString("1998");
-        respuesta2.setString("1999");//correcta
-        break;
-    case 8:
-        respuesta1.setString("Los del Rio");//correcta
-        respuesta2.setString("Los del Lago");
-        break;
-    case 9:
-        respuesta1.setString("Te aviso, te anuncio");
-        respuesta2.setString("Si te vas");//correcta
-        break;
-    }
+   
+    
     
     
 
     title.setString("TRIVIA");
-    pregunta.setString("Puntos: " + std::to_string(player.carisma + player.inteligencia));
+    //pregunta.setString("Puntos: " + std::to_string(player.carisma + player.inteligencia));
     std::string algo(preguntas[answer]);
     pregunta.setString(algo);
     pregunta.setCharacterSize(20);
     pregunta.setOrigin(pregunta.getGlobalBounds().width / 2, pregunta.getGlobalBounds().height / 2);
-    pregunta.setPosition(720 / 2, 720 / 2);
+    pregunta.setPosition(720 / 2, 720 / 3);
 
     
     respuesta1.setCharacterSize(20);
     respuesta1.setOrigin(respuesta1.getGlobalBounds().width / 2, respuesta1.getGlobalBounds().height / 2);
-    respuesta1.setPosition(720 / 2, 720 - respuesta1.getGlobalBounds().height * 2);
+    respuesta1.setPosition(720 / 2, 720/2);
+
+    respuesta2.setCharacterSize(20);
+    respuesta2.setOrigin(respuesta2.getGlobalBounds().width / 2, respuesta2.getGlobalBounds().height / 2);
+    respuesta2.setPosition(720 / 2, (720 / 2)+ respuesta2.getGlobalBounds().height * 4);
+
+
+    textoDeAbajo.setCharacterSize(20);
+    textoDeAbajo.setString("Presione 1 para elegir la opcion 1\nPresione 2 para elegir la opcion 2");
+    textoDeAbajo.setOrigin(textoDeAbajo.getGlobalBounds().width / 2, textoDeAbajo.getGlobalBounds().height / 2);
+    textoDeAbajo.setPosition(720 / 2, 720 - textoDeAbajo.getGlobalBounds().height * 2);
 
 
     title.setOrigin(title.getGlobalBounds().width / 2, title.getGlobalBounds().height / 2);
     title.setPosition(720 / 2, 50);
 
-    pregunta.setOrigin(pregunta.getGlobalBounds().width / 2, pregunta.getGlobalBounds().height / 2);
-    pregunta.setPosition(720 / 2, 100);
+    /*pregunta.setOrigin(pregunta.getGlobalBounds().width / 2, pregunta.getGlobalBounds().height / 2);
+    pregunta.setPosition(720 / 2, 100);*/
 
     bool exit = false;
     while (window1.isOpen() && !exit)
@@ -718,6 +751,38 @@ void Game::menuPregunta(bool disco)
             {
                 exit = true;
             }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1))
+            {
+                if (correcta == 1)
+                {
+                    if (disco)
+                    {
+                        player.carisma += 10;
+                    }
+                    else
+                    {
+                        player.inteligencia += 10;
+                    }
+                }
+                ///algo
+                exit = true;
+            }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) || sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2))
+            {
+                if (correcta == 2)
+                {
+                    if (disco)
+                    {
+                        player.carisma += 10;
+                    }
+                    else
+                    {
+                        player.inteligencia += 10;
+                    }
+                }
+                
+                exit = true;
+            }
+
             /*if (backButton.isClicked(window1))
             {
                 exit = true;
@@ -730,7 +795,9 @@ void Game::menuPregunta(bool disco)
         window1.draw(title);
         window1.draw(pregunta);
         window1.draw(respuesta1);
+        window1.draw(respuesta2);
         window1.draw(pregunta);
+        window1.draw(textoDeAbajo);
         window1.display();
     }
 }
