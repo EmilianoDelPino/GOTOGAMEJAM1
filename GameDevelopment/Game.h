@@ -55,6 +55,7 @@ public:
     void cargarEntidadeslvl1();
     void cargarEntidadeslvl2();
     void gameOverScreen();
+    void menuPregunta(bool);
 
 };
 

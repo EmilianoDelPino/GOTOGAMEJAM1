@@ -346,6 +346,10 @@ void Game::eventListener()
         gameOver = true;
         gameOverScreen();
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::N))
+    {
+        menuPregunta(true);
+    }
 }
 
 void Game::drawWindow() {
@@ -491,8 +495,6 @@ void Game::cargarEntidadeslvl2()
 
 void Game::gameOverScreen()
 {
-
-
     sf::Text title;
     sf::Text score;
     sf::Text otroTexto;
@@ -569,5 +571,126 @@ void Game::gameOverScreen()
         window1.draw(textoDeRelleno);
         window1.display();
     }
+
+}
+
+
+
+void Game::menuPregunta(bool disco)
+{
+    sf::Text title;
+    sf::Text pregunta;
+    sf::Text respuesta1;
+    sf::Text respeusta2;
+    title.setFont(font);
+    pregunta.setFont(font);
+    respeusta2.setFont(font);
+    respuesta1.setFont(font);
+    title.setFillColor(sf::Color(255, 255, 255));
+    pregunta.setFillColor(sf::Color(255, 255, 255));
+    respuesta1.setFillColor(sf::Color(255, 255, 255));
+    respeusta2.setFillColor(sf::Color(255, 255, 255));
+
+    std::vector<std::string> preguntas(10);
+
+    if (disco)
+    {
+        preguntas = 
+        { 
+            "¿Cual fue la primera grabación de\nRock and Roll?",
+            "Una de estas obras NO es de Mozart.\n¿Cual de ellas?" ,
+            "¿Cual de los siguientes cantantes\npronunció la frase 'Prefiero que me\nodien por lo que soy a que me\nadmiren por lo que nunca sere'?",
+            "¿Cuándo nacio el rap?",
+            "¿Cual de estas canciones no es del\ngrupo inmortal Queen?",
+            "¿En qué año Beyonce lanzó su primer\ndisco como solista?",
+            "¿Quién compuso\n'Las cuatro estaciones'?",
+            "Livin la vida loca, es\nprobablemente la canción insignia de\nRicky Martin.\n¿Recuerdas en que año salio ? ",
+            "El baile 'La Macarena', sacudio al\nmundo desde 1996. ¿Recuerdas quien\ncantaba esta canción ?.",
+            "Shakira es recordada por sus\ninteligentes y divertidas\nfrases, ¿recuerdas a qué\ncanción pertenece su lírica\n'Si me cambias, por esa\nbruja pedazo de cuero, no\nvuelvas nunca mas ?' "
+        };
+    }
+    else
+    {
+        preguntas =
+        {
+            "¿Cual fue la primera grabación de Rock and Roll?",
+            "Una de estas obras no es de Mozart. ¿Cual de ella?" ,
+            "¿Cual de los siguientes cantantes pronunció la frase 'Prefiero que me odien por lo que soy a que me admiren por lo que nunca seré'?",
+            "aaa",
+            "aaa",
+            "aaa",
+            "aaa",
+            "aaa",
+            "aaa",
+            "aaa"
+        };
+    }
+
+    preguntas[rand() % 10];
+
+    title.setString("Juego Terminado");
+    pregunta.setString("Puntos: " + std::to_string(player.carisma + player.inteligencia));
+    std::string algo(preguntas[9/*rand() % 10*/]);
+    respeusta2.setString(algo);
+    respeusta2.setCharacterSize(20);
+    respeusta2.setOrigin(respeusta2.getGlobalBounds().width / 2, respeusta2.getGlobalBounds().height / 2);
+    respeusta2.setPosition(720 / 2, 720 / 2);
+
+    respuesta1.setString("Presione ENTER para salir");
+    respuesta1.setCharacterSize(20);
+    respuesta1.setOrigin(respuesta1.getGlobalBounds().width / 2, respuesta1.getGlobalBounds().height / 2);
+    respuesta1.setPosition(720 / 2, 720 - respuesta1.getGlobalBounds().height * 2);
+
+
+    title.setOrigin(title.getGlobalBounds().width / 2, title.getGlobalBounds().height / 2);
+    title.setPosition(720 / 2, 50);
+
+    pregunta.setOrigin(pregunta.getGlobalBounds().width / 2, pregunta.getGlobalBounds().height / 2);
+    pregunta.setPosition(720 / 2, 100);
+
+    bool exit = false;
+    while (window1.isOpen() && !exit)
+    {
+        sf::Event event1;
+        while (window1.pollEvent(event1))
+        {
+            if (event1.type == sf::Event::Closed)
+                window1.close();
+            if (event1.type == sf::Event::MouseMoved)
+            {
+                /*if (backButton.checkMouseColition(window1))
+                {
+                    backButton.updateSelection(true);
+                }
+                else
+                {
+                    backButton.updateSelection(false);
+                }*/
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            {
+                exit = true;
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+            {
+                exit = true;
+            }
+            /*if (backButton.isClicked(window1))
+            {
+                exit = true;
+            }*/
+        }
+
+        //backButton.update();
+
+        window1.clear();
+        // backButton.draw(window1);
+        window1.draw(title);
+        window1.draw(pregunta);
+        window1.draw(respuesta1);
+        window1.draw(respeusta2);
+        window1.display();
+    }
+
 
 }
