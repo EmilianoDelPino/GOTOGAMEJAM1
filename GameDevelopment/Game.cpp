@@ -629,7 +629,7 @@ bool Game::menuPregunta(bool disco)
             "¿Cual de estas canciones no es del\ngrupo inmortal Queen?",
             "¿En qué año Beyonce lanzó su primer\ndisco como solista?",
             "¿Quién compuso\n'Las cuatro estaciones'?",
-            "Livin la vida loca, es\nprobablemente la canción insignia de\nRicky Martin.\n¿Recuerdas en que año salio ? ",
+            "Livin la vida loca, es\nprobablemente la canción insignia\nde Ricky Martin.\n¿Recuerdas en que año salio ? ",
             "El baile 'La Macarena', sacudio al\nmundo desde 1996. ¿Recuerdas quien\ncantaba esta canción ?.",
             "Shakira es recordada por sus\ninteligentes y divertidas\nfrases, ¿recuerdas a qué\ncanción pertenece su lírica\n'Si me cambias, por esa\nbruja pedazo de cuero, no\nvuelvas nunca mas ?' "
         };
@@ -651,8 +651,8 @@ bool Game::menuPregunta(bool disco)
             correcta = 1;
             break;
         case 3:
-            respuesta1.setString("1) Finales de los 50/ principios de los 60");
-            respuesta2.setString("2) Finales de los 60/ principios de los 70");//correcta
+            respuesta1.setString("1) Finales de los 50/\n principios de los 60");
+            respuesta2.setString("2) Finales de los 60/\n principios de los 70");//correcta
             correcta = 2;
             break;
         case 4:
@@ -885,7 +885,7 @@ void Game::resultScreen(answerType type)
     exitText.setFont(font);
     exitText.setFillColor(sf::Color(255, 255, 255));
     exitText.setCharacterSize(20);
-    exitText.setString("Presiona ENTER para salir.");
+    exitText.setString("Presiona ENTER para continuar.");
     exitText.setOrigin(exitText.getGlobalBounds().width / 2, exitText.getGlobalBounds().height / 2);
     exitText.setPosition(window1.getSize().x / 2.f, (window1.getSize().y / 4.f) * 3);
 
